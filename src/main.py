@@ -44,33 +44,40 @@ def binomial_function_case_2(n, k, N):
     return math.comb(n, k) * (p**k) * (1 - p) ** (n - k)
 
 # VISUALIZATION #
-N_values = list(range(N_min, N_max + 1))
+x = np.arange(0, n+1)
+N_values = np.linspace(N_min, N_max, 4, dtype=int)
 
-hyper_case1 = [hypergeometric_function_case_1(N, n, k) for N in N_values]
-binom_case1 = [binomial_function_case_1(n, k)] * len(N_values)
-
-hyper_case2 = [hypergeometric_function_case_2(N, n, k) for N in N_values]
-binom_case2 = [binomial_function_case_2(n, k, N) for N in N_values]
-
-fig, axes = plt.subplots(1, 2, figsize=(12,5))
+plt.figure(figsize=(14,16))
 
 # Case 1
-axes[0].plot(N_values, hyper_case1, label="Hypergeometric", color="blue")
-axes[0].plot(N_values, binom_case1, "--", label="Binomial", color="red")
-axes[0].set_title(f"Case 1: Hypergeometric vs Binomial (k={k})")
-axes[0].set_xlabel("N")
-axes[0].set_ylabel(f"P(X={k})")
-axes[0].legend()
-axes[0].grid(True)
+for i, N in enumerate(N_values, 1):
+    prob_hypergeo = [hypergeometric_function_case_1(N, n, k) for k in x]
+    prob_binomial = [binomial_function_case_1(n, k) for k in x]
+
+    plt.subplot(4,2,i)
+    plt.bar(x-0.2, prob_binomial, width=0.4,
+            label=f"Binomial(n={n}, p=0.3)", alpha=0.7)
+    plt.bar(x+0.2, prob_hypergeo, width=0.4,
+            label=f"Hypergeo(N={N}, r={int(0.3*N)}, n={n})", alpha=0.7)
+    plt.title(f"Case 1: Hypergeo vs Binomial (N={N})")
+    plt.xlabel("k (número de éxitos)")
+    plt.ylabel("Probabilidad")
+    plt.legend()
 
 # Case 2
-axes[1].plot(N_values, hyper_case2, label="Hypergeometric", color="green")
-axes[1].plot(N_values, binom_case2, "--", label="Binomial", color="orange")
-axes[1].set_title(f"Case 2: Hypergeometric vs Binomial (k={k})")
-axes[1].set_xlabel("N")
-axes[1].set_ylabel(f"P(X={k})")
-axes[1].legend()
-axes[1].grid(True)
+for j, N in enumerate(N_values, 1):
+    prob_hypergeo = [hypergeometric_function_case_2(N, n, k) for k in x]
+    prob_binomial = [binomial_function_case_2(n, k, N) for k in x]
+
+    plt.subplot(4,2,4+j)
+    plt.bar(x-0.2, prob_binomial, width=0.4,
+            label=f"Binomial(n={n}, p={20/N:.3f})", alpha=0.7)
+    plt.bar(x+0.2, prob_hypergeo, width=0.4,
+            label=f"Hypergeo(N={N}, r=20, n={n})", alpha=0.7)
+    plt.title(f"Case 2: Hypergeo vs Binomial (N={N})")
+    plt.xlabel("k (número de éxitos)")
+    plt.ylabel("Probabilidad")
+    plt.legend()
 
 plt.tight_layout()
 plt.show()
