@@ -3,4 +3,4 @@ This problem presents a probability experiment involving two types of random var
 
 ![Image](https://github.com/user-attachments/assets/46c5b431-0782-4174-b366-50a5e01935ef)
 
-Most of the graphs were made with ChatGPT :)
+The graphs were made with ChatGPT :)
