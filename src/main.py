@@ -5,12 +5,12 @@ import os
 os.system('cls')
 
 correct_selection = False
-while not correct_selection: 
-    N_min = int(input('Minimum # of Simulations = '))
-    N_max = int(input('Maximum # of Simulations = '))
+while (correct_selection != True): 
+    N_min = int(input('Minimum # of Simulations(N) = '))
+    N_max = int(input('Maximum # of Simulations(N) = '))
     n = 10
-    k = int(input('# of Successes           = '))
-    print(f'Sample Space             = {n}')
+    k = int(input('# of Successes(k)           = '))
+    print(f'Sample Space(n)             = {n}')
 
     if (k >= 0 and N_min > 0 and N_max >= N_min):
         correct_selection = True
